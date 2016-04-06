@@ -1,57 +1,76 @@
+function loadJSON(url, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', url, true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+function createEventOk(element, textForSelectors) {
+    element.onclick = function(){        
+        $('#'+textForSelectors).addClass('hide');
+        $('#'+textForSelectors+'-button').removeClass('hide');
+        $('input[name='+textForSelectors+']').attr('checked',false);
+        if ($('input[name='+textForSelectors+'-text]').length) {
+            $('input[name='+textForSelectors+'-text]').not('.hide').addClass('hide');
+            $('input[name='+textForSelectors+'-text]').val('');                
+        }
+    }
+}
+
+function createEventProblem(element, textForSelectors) {    
+    var parentRow = $(element).closest('tr').find('td');
+    var siblingElementText = '';
+    parentRow.each(function(){
+        if (this.id.indexOf(textForSelectors) == -1) {
+          siblingElementText = sliceOutId(this.id, siblingElementText);
+
+        }
+    });
+    element.onclick = function(){        
+        $('#'+siblingElementText).addClass('hide');
+        $('#'+textForSelectors).removeClass('hide');
+        $('#'+textForSelectors+'-button').addClass('hide');
+        $('#'+siblingElementText+'-button').removeClass('hide');
+    }
+}
+
+function applyAutoHide(nodes) {
+    for (var i = 0; i < nodes.length; i++) {  
+        var id = nodes[i].id;  
+        var textForSelectors = sliceOutId(id, textForSelectors);  
+        if (nodes[i].id.indexOf('ok') != -1) {
+            createEventOk(nodes[i], textForSelectors);            
+        }
+        else {
+            createEventProblem(nodes[i], textForSelectors);
+        }
+    }
+}
+
+function sliceOutId(idName, textForSelectors) {
+    var idPosition = idName.indexOf("-", idName.indexOf("-") + 1);
+    textForSelectors = idName.slice(0, idPosition); 
+    return textForSelectors;
+}
+
+function applyHelpers(nodes) {
+    $(nodes).each(function(){
+        checkRadio(this.name);
+    })
+}
+
 $(document).ready(function() {
-    document.getElementById('out-general-button').onclick = function() { 
-		$('#out-quality').addClass('hide');
-		$('#out-general').removeClass('hide');
-		$('#out-general-button').addClass('hide');
-		$('#out-quality-button').removeClass('hide');
-	};
-    document.getElementById('out-quality-button').onclick = function() { 
-		$('#out-general').addClass('hide');
-		$('#out-quality').removeClass('hide');
-		$('#out-quality-button').addClass('hide');
-		$('#out-general-button').removeClass('hide');
-	};
-	document.getElementById('in-general-button').onclick = function() { 
-		$('#in-quality').addClass('hide');
-		$('#in-general').removeClass('hide');
-		$('#in-general-button').addClass('hide');
-		$('#in-quality-button').removeClass('hide');
-	};
-    document.getElementById('in-quality-button').onclick = function() { 
-		$('#in-general').addClass('hide');
-		$('#in-quality').removeClass('hide');
-		$('#in-quality-button').addClass('hide');
-		$('#in-general-button').removeClass('hide');
-	};
-	document.getElementById('out-general-ok-button').onclick = function() { 
-		$('#out-general').addClass('hide');
-		$('#out-general-button').removeClass('hide');
-		$('input[name=out-general]').attr('checked',false);
-		$('input[name=out-general-text]').not('.hide').addClass('hide');
-		$('input[name=out-general-text]').val('');
-	};
-	document.getElementById('out-quality-ok-button').onclick = function() { 
-		$('#out-quality').addClass('hide');
-		$('#out-quality-button').removeClass('hide');
-		$('input[name=out-quality]').attr('checked',false);
-	};
-	document.getElementById('in-general-ok-button').onclick = function() { 
-		$('#in-general').addClass('hide');
-		$('#in-general-button').removeClass('hide');
-		$('input[name=in-general]').attr('checked',false);
-		$('input[name=in-general-text]').not('.hide').addClass('hide');
-		$('input[name=in-general-text]').val('');
-	};
-	document.getElementById('in-quality-ok-button').onclick = function() { 
-		$('#in-quality').addClass('hide');
-		$('#in-quality-button').removeClass('hide');
-		$('input[name=in-quality]').attr('checked',false);
-	};
+    applyAutoHide($('td button'));
+
+    applyHelpers($('[name*=-text]'));
+
 	checkPBX();
-	checkRadio('type-text');
-	checkRadio('out-general-text');
-	checkRadio('in-general-text');
-	checkRadio('paral-text');
 });
 
 function checkRadio(element) {
@@ -110,21 +129,15 @@ function checkInputTel(inputs) {
 }
 
 function checkInOut() {
-    var outG = document.getElementById('out-general');
-    var outQ = document.getElementById('out-quality');
-    var inG = document.getElementById('in-general');
-    var inQ = document.getElementById('in-quality');
-	var outT = document.getElementById('out-general-text'); 
-	var inT = document.getElementById('in-general-text'); 
-    var inOut = [outG, outQ, inG, inQ, outT, inT];
+    var inOut = $("td > div");
     var none = true;
     for (var i = 0; i < inOut.length; i++) {
         if (inOut[i].className.indexOf('hide') == -1) {
-            $('input[name="' + inOut[i].id + '"]').each(function () {
+            $('input[name*="' + inOut[i].id + '"]').each(function () {
 				if (this.checked) {
 					none = false;					
 				}
-				if (this.type === 'text' && !this.value) {
+				if ((this.className.indexOf('hide') === -1) && this.type === 'text' && !this.value) {
 					none = true;
 				}
 			});
@@ -146,20 +159,16 @@ function checkInOut() {
     }
 }
 
-
-
 function getTelText() {
-	var inputs = $("#ol :input:not(:button)").not("input[name='out-general'], input[name='out-quality'], input[name='in-general'], input[name='in-quality'], input[name='in-general-text'], input[name='out-general-text']");
+    var inputs = $("td > input"); // all inputs except in/out 
     if (checkInputTel(inputs) && checkInOut()) {
         loadJSON('modeltel.json', function (response) {
             var model = JSON.parse(response);
             var text = '';
-            text += inOutText(model);
+            text += getInOutText(model);
             for (var i = 0; i < inputs.length; i++) {
                     inputs[i].name = inputs[i].name.replace('-text', '');
-                    //alert(inputs[i].name); alert(inputs[i].value);
                     var radioNode = model[inputs[i].name].f[inputs[i].value];
-                    //alert(radioNode);
                     if (inputs[i].type === 'radio' && inputs[i].checked) {
                         (inputs[i + 1].name.indexOf('text') == -1)
                             ? (text += radioNode + '\n')
@@ -172,68 +181,47 @@ function getTelText() {
     }
 }
 
-function inOutText(model) {
+function getInOutText(model) {
     var inOutText = '';
-    var outText = 'Входящая связь: ';
-    var inText = 'Исходящая связь: ';
-    var outG = document.getElementById('out-general');
-    var outQ = document.getElementById('out-quality');
-    var inG = document.getElementById('in-general');
-    var inQ = document.getElementById('in-quality');
-    var outT = document.getElementById('out-general-text');
-    var inT = document.getElementById('in-general-text');
-    var inOut = [outG, outQ, inG, inQ, outT, inT];
-    if (outG.className.indexOf('hide') != -1 && outQ.className.indexOf('hide') != -1) {
-        inOutText += outText + 'работает' + '\n';
-    }
-    else if (outG.className.indexOf('hide') === -1) {
-        var inputOut = $("#out-general :input:not(:button)");
-        var textForOut = 'general';
-        for (var i = 0; i < inputOut.length; i++) {
-            var radioNode = model[textForOut].f[inputOut[i].value];
-            if (inputOut[i].type === 'radio' && inputOut[i].checked) {
-                (inputOut[i + 1].name.indexOf('text') == -1)
-                    ? (inOutText += outText + radioNode + '\n')
-                    : (inOutText += outText + radioNode + inputOut[i+1].value + '\n');
-            }
-        }
-    }
-    else if (outQ.className.indexOf('hide') === -1) {
-        var inputOut = $("#out-quality :input:not(:button)");
-        var textForOut = 'quality';
-        for (var i = 0; i < inputOut.length; i++) {
-            var radioNode = model[textForOut].f[inputOut[i].value];
-            if (inputOut[i].type === 'radio' && inputOut[i].checked) {
-                    inOutText += outText + radioNode + '\n';
-            }
-        }
-    }
+    var elements = $('td > div:not(.hide)');
+    return getTextByElements(elements, model, inOutText);
+}
 
-    if (inG.className.indexOf('hide') != -1 && inQ.className.indexOf('hide') != -1) {
-        inOutText += inText + 'работает' + '\n';
+function getTextByElements(elements, model, inOutText) {
+    var helper = ['Входящая связь: ', 'Исходящая связь: '];
+    if (elements.length > 2 || elements.length < 1) {
+        inOutText += 'Failed to generate text. Reload page and try again';
     }
-    else if (inG.className.indexOf('hide') === -1) {
-        var inputOut = $("#in-general :input:not(:button)");
-        var textForOut = 'general';
-        for (var i = 0; i < inputOut.length; i++) {
-            var radioNode = model[textForOut].f[inputOut[i].value];
-            if (inputOut[i].type === 'radio' && inputOut[i].checked) {
-                (inputOut[i + 1].name.indexOf('text') == -1)
-                    ? (inOutText += inText + radioNode + '\n')
-                    : (inOutText += inText + radioNode + inputOut[i+1].value + '\n');
+    else {
+        if (jQuery(elements).find('[id*=out]').length && jQuery(elements).find('[id*=in]').length) {
+            for (var i = 0; i < elements.length; i++) {
+                inOutText +=  helper[i] + getText(elements[i], model);
             }
+            return inOutText;
         }
-    }
-    else if (inQ.className.indexOf('hide') === -1) {
-        var inputOut = $("#in-quality :input:not(:button)");
-        var textForOut = 'quality';
-        for (var i = 0; i < inputOut.length; i++) {
-            var radioNode = model[textForOut].f[inputOut[i].value];
-            if (inputOut[i].type === 'radio' && inputOut[i].checked) {
-                inOutText += inText + radioNode + '\n';
-            }
+        else if (!jQuery(elements).find('[id*=out]').length) {
+            inOutText += helper[0] + 'работает' + '\n' + helper[1] + getText(elements[0], model);            
+            return inOutText;
         }
+        else {
+            inOutText += helper[0] + getText(elements[0], model) + helper[1] + 'работает' + '\n';
+            return inOutText;
+        }       
     }
+}   
 
-    return inOutText;
+function getText(element, model){
+    var id = element.id;
+    var textForOut = id.substr(id.indexOf("-") + 1);
+    var result = '';
+    element = element.getElementsByTagName('input');
+    for (var i = 0; i < element.length; i++) {
+        var radioNode = model[textForOut].f[element[i].value];
+        if (element[i].type === 'radio' && element[i].checked) {
+            ((i + 1 === element.length) || (element[i + 1].name.indexOf('text') == -1))
+                ? (result += radioNode + '\n')
+                : (result += radioNode + element[i+1].value + '\n');
+        }
+    }
+    return result;
 }

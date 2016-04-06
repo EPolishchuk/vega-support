@@ -1,133 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Стандартизированные тексты проблемных листов</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vega Support</title>
+    <link rel="shortcut icon" href="favicon.ico"></link>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/background.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<header>    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Открыть меню</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Vega Support</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Интернет</a></li>
+                    <li><a href="telephone.html">Телефония</a></li>
+                    <li><a href="nt.html">Инструменты</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</header>
+
+<section class="questions">    
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Опросные листы:</a>
+        <div class="row">
+            <div class="col-md-3">
+                <select class="form-control" id="zone" onclick="disData();">
+                    <option value="w">Западный филиал</option>
+                    <option value="n">Северный филиал</option>
+                    <option value="ne">Северо-Восточный филиал</option>
+                    <option value="c">Центральный филиал</option>
+                    <option value="s">Южный филиал</option>
+                    <option value="e">Восточный филиал</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <div class="tech-type">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary" onclick="rightChoice();">
+                            <input type="radio" name="data" id="fiber"> FTTH/FTTB
+                        </label>
+                        <label class="btn btn-primary" id="datavalid" data-toggle="tooltip" data-placement="bottom"
+                               title="Выберете технологию!">
+                            <input type="radio" name="data" id="adsl"> ADSL
+                        </label>
+                        <label class="btn btn-primary" disabled=true; id="fvpn" onclick="rightChoice();">
+                            <input type="radio" name="data" id="vpnfiber"> FTTB (VPN)
+                        </label>
+                        <label class="btn btn-primary" disabled=true; id="avpn">
+                            <input type="radio" name="data" id="vpnadsl"> ADSL(VPN)
+                        </label>
+                    </div> 
+                </div>          
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" id="trouble" onclick="checkDsl();">
+                    <option value="link">Нет физической связи</option>
+                    <option value="soft">Нет передачи данных</option>
+                    <option value="auth">Нет авторизации</option>
+                    <option value="close">Обрывы связи</option>
+                    <option value="loswspeed">Низкая скорость</option>
+                    <option value="lowlink" id="dsl">Низкий коннект</option>
+                    <option value="paklost">Потери пакетов</option>
+                </select>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Интернет</a></li>
-                <li><a href="/telephone.html">Телефония</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="/nt.html">Инструменты</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="http://forum.alkar.org.ua/viewforum.php?f=3" target="_blank">Форум</a></li>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
-    </div>
-</div>
 
-<div class="container">
     <div class="row">
-        <div class="col-md-3 col-md-offset-1 col-sm-12 btn-group">
-            <select class="form-control" id="zone" onclick="disData();">
-                <option value="w">Западный филиал</option>
-                <option value="n">Северный филиал</option>
-                <option value="ne">Северо-Восточный филиал</option>
-                <option value="c">Центральный филиал</option>
-                <option value="s">Южный филиал</option>
-                <option value="k">Крымский филиал</option>
-                <option value="e">Восточный филиал</option>
-            </select>
-        </div>
-        <div class="col-md-5 col-sm-12 btn-group" data-toggle="buttons">
-            <label class="btn btn-primary" onclick="rightChoice();">
-                <input type="radio" name="data" id="fiber"> FTTH/FTTB
-            </label>
-            <label class="btn btn-primary" id="datavalid" data-toggle="tooltip" data-placement="bottom"
-                   title="Выберете технологию!">
-                <input type="radio" name="data" id="adsl"> ADSL
-            </label>
-            <label class="btn btn-primary" disabled=true; id="fvpn" onclick="rightChoice();">
-                <input type="radio" name="data" id="vpnfiber"> FTTB (VPN)
-            </label>
-            <label class="btn btn-primary" disabled=true; id="avpn">
-                <input type="radio" name="data" id="vpnadsl"> ADSL(VPN)
-            </label>
-        </div>
-        <div class="col-md-3 col-md-pull-1 col-sm-12 btn-group">
-            <select class="form-control" id="trouble" onclick="checkDsl();">
-                <option value="link">Нет физической связи</option>
-                <option value="soft">Нет передачи данных</option>
-                <option value="auth">Нет авторизации</option>
-                <option value="close">Обрывы связи</option>
-                <option value="loswspeed">Низкая скорость</option>
-                <option value="lowlink" id="dsl">Низкий коннект</option>
-                <option value="paklost">Потери пакетов</option>
-            </select>
+        <div class="col-md-5 col-md-offset-3 text-center">
+            <button type="button" id="loading" data-loading-text="Создание..." class="btn btn-danger btn-lg" onclick="init();">Создать опросный лист</button>
         </div>
     </div>
-</div>
-<br>
 
-<div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center">
-            <button type="button" id="loading" data-loading-text="Создание..." class="btn btn-danger btn-lg"
-                    onclick="init();">Создать опросный лист
-            </button>
-        </div>
-    </div>
-</div>
-<br>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">         
             <table class="table">
                 <tbody id="ol">
-
                 </tbody>
             </table>
         </div>
     </div>
-</div>
-<br>
 
-<div class="container hide" id="divwbut">
     <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <button type="button" class="btn btn-primary btn-lg" onclick="getText();">Получить текст для проблемного листа
-        </button>
-    </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Текст проблемного листа</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="text" class="tickettext"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <div class="hide" id="divwbut">
+            <div class="col-md-5 col-md-offset-3 text-center">
+                <button type="button" class="btn btn-primary btn-lg" onclick="getText();">Получить текст</button>
             </div>
         </div>
     </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Текст проблемного листа</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea id="text" class="tickettext"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="push"></div><<!-- stick footer to the bottom -->
+</section>
+
+<footer>2016 &copy; Vega Support</footer>   
+
 <script src="js/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/addsupport.js"></script>
-<script type="text/javascript" src="js/createtables.js"></script>
+<script src="js/addsupport.js"></script>
+<script src="js/createtables.js"></script>
 </body>
 </html>

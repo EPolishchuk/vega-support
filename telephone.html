@@ -1,195 +1,190 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Стандартизированные тексты проблемных листов</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
-    <meta http-equiv='cache-control' content='no-cache'>
-    <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
-    <!-- Bootstrap -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vega Support</title>
+    <link rel="shortcut icon" href="favicon.ico"></link>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/background.css" rel="stylesheet" media="screen">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    <link href="css/style.css" rel="stylesheet" rel="stylesheet">
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<header>    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Открыть меню</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#index.html">Vega Support</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Интернет</a></li>
+                    <li class="active"><a href="telephone.html">Телефония</a></li>
+                    <li><a href="nt.html">Инструменты</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</header>
+
+<section>
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Опросные листы:</a>
+        <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table">
+                <tbody id="ol">
+                <tr>
+                    <td>Направление связи на котором наблюдаются проблемы</td>
+                    <td colspan=2>
+                        <input id="type-0" name="type" value="0" type="radio"><label for="type-0">Все направления</label><br>
+                        <input id="type-1" name="type" value="1" type="radio"><label for="type-1">Отдельные номера</label><br>
+                        <input class="hide" name="type-text" placeholder="Впишите номера" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Входящая связь</td>
+                    <td id="out-general-block">
+                        <div id="out-general" class="hide">
+                            <input id="out-general-0" name="out-general" value="0" type="radio"><label for="out-general-0">Отсутствие сигнала (зуммера)</label><br>
+                            <input id="out-general-1" name="out-general" value="1" type="radio"><label for="out-general-1">Сигнал готовность станции (длинный гудок)</label><br>
+                            <input id="out-general-2" name="out-general" value="2" type="radio"><label for="out-general-2">Сигнал занято (короткие гудки)</label><br>
+                            <input id="out-general-3" name="out-general" value="3" type="radio"><label for="out-general-3">Голосовое сообщение</label><br>
+                            <input class="hide" id="out-general-text" name="out-general-text" placeholder="Впишите текст сообщения" type="text"><br>
+                            <button type="button" class="btn btn-success" id="out-general-ok-button">Связь работает</button>
+                        </div>
+                        <button type="button" class="btn btn-danger" id="out-general-button">Отсутствует</button>
+                    </td>
+                    <td id="out-quality-block">
+                        <div id="out-quality" class="hide">
+                            <input id="out-quality-0" name="out-quality" value="0" type="radio"><label for="out-quality-0">Шумы, помехи или эхо</label><br>
+                            <input id="out-quality-1" name="out-quality" value="1" type="radio"><label for="out-quality-1">Односторонняя слышимость</label><br>
+                            <input id="out-quality-2" name="out-quality" value="2" type="radio"><label for="out-quality-2">Обрывы разговоров</label><br>
+                            <input id="out-quality-3" name="out-quality" value="3" type="radio"><label for="out-quality-3">Ошибочные соединения</label><br>
+                            <button type="button" class="btn btn-success" id="out-quality-ok-button">Помех нет</button>
+                        </div>
+                        <button type="button" class="btn btn-warning" id="out-quality-button">Помехи</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Исходящая связь</td>
+                    <td id="in-general-block">
+                        <div id="in-general" class="hide">
+                            <input id="in-general-0" name="in-general" value="0" type="radio"><label for="in-general-0">Отсутствие сигнала (зуммера)</label><br>
+                            <input id="in-general-1" name="in-general" value="1" type="radio"><label for="in-general-1">Сигнал готовность станции (длинный гудок)</label><br>
+                            <input id="in-general-2" name="in-general" value="2" type="radio"><label for="in-general-2">Сигнал занято (короткие гудки)</label><br>
+                            <input id="in-general-3" name="in-general" value="3" type="radio"><label for="in-general-3">Голосовое сообщение</label><br>
+                            <input class="hide" id="in-general-text" name="in-general-text" placeholder="Впишите текст сообщения" type="text"><br>
+                            <button type="button" class="btn btn-success" id="in-general-ok-button">Связь работает</button>
+                        </div>
+                        <button type="button" class="btn btn-danger" id="in-general-button">Отсутствует</button>
+                    </td>
+                    <td id="in-quality-block">
+                        <div id="in-quality" class="hide">
+                            <input id="in-quality-0" name="in-quality" value="0" type="radio"><label for="in-quality-0">Шумы, помехи или эхо</label><br>
+                            <input id="in-quality-1" name="in-quality" value="1" type="radio"><label for="in-quality-1">Односторонняя слышимость</label><br>
+                            <input id="in-quality-2" name="in-quality" value="2" type="radio"><label for="in-quality-2">Обрывы разговоров</label><br>
+                            <input id="in-quality-3" name="in-quality" value="3" type="radio"><label for="in-quality-3">Ошибочные соединения</label><br>
+                            <button type="button" class="btn btn-success" id="in-quality-ok-button">Помех нет</button>
+                        </div>
+                        <button type="button" class="btn btn-warning" id="in-quality-button">Помехи</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Тип аппарата</td>
+                    <td>
+                        <input id="teltype-0" name="teltype" value="0" type="radio"><label for="teltype-0">Стационарный</label><br>
+                        <input id="teltype-1" name="teltype" value="1" type="radio"><label for="teltype-1">Радиотелефон</label><br>
+                        <input id="teltype-2" name="teltype" value="2" type="radio"><label for="teltype-2">Факс</label><br>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Параллельные телефоны на линии</td>
+                    <td>
+                        <input id="paral-0" name="paral" value="0" type="radio"><label for="paral-0">На линии один телефонный аппарат</label><br>
+                        <input id="paral-1" name="paral" value="1" type="radio"><label for="paral-1">На линии есть параллельные аппараты</label><br>
+                        <input class="hide" name="paral-text" placeholder="Укажите количество" type="text">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ADSL на линии</td>
+                    <td>
+                        <input id="dslonline-0" name="dslonline" value="0" type="radio"><label for="dslonline-0">На линии только телефония</label><br>
+                        <input id="dslonline-1" name="dslonline" value="1" type="radio"><label for="dslonline-1">На линии есть ADSL</label><br>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Наличие мини-АТС</td>
+                    <td>
+                        <input id="pbx-0" name="pbx" value="0" type="radio"><label for="pbx-0">Есть</label><br>
+                        <input id="pbx-1" name="pbx" value="1" type="radio"><label for="pbx-1">Нет</label><br>
+                        <input id="pbx-2" name="pbx" value="2" type="radio"><label for="pbx-2">Неизвестно</label><br>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr id="reload-pbx" class="hide">
+                    <td>Перезагрузка Мини-АТС</td>
+                    <td>
+                        <input id="pbxreload-0" name="pbxreload" value="0" type="radio"><label for="pbxreload-0">Да</label><br>
+                        <input id="pbxreload-1" name="pbxreload" value="1" type="radio"><label for="pbxreload-1">Нет</label><br>
+                        <input id="pbxreload-2" name="pbxreload" value="2" type="radio"><label for="pbxreload-2">Нет возможности</label><br>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Дополнительная информация</td>
+                    <td>
+                        <input name="add" type="text">
+                    </td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/index.html">Интернет</a></li>
-                <li class="active"><a href="#">Телефония</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="/nt.html">Инструменты</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="http://forum.alkar.org.ua/viewforum.php?f=3" target="_blank">Форум</a></li>
-            </ul>
         </div>
-        <!--/.nav-collapse -->
     </div>
-</div>
+    <br>
 
-<div class="container">
-    <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table">
-            <tbody id="ol">
-            <tr>
-                <td>Направление связи на котором наблюдаются проблемы</td>
-                <td colspan=2>
-                    <input name="type" value="0" type="radio">Все направления<br>
-                    <input name="type" value="1" type="radio">Отдельные номера<br>
-                    <input class="hide" name="type-text" placeholder="Впишите номера" type="text">
-                </td>
-            </tr>
-            <tr>
-                <td>Входящая свять</td>
-                <td id="out-general-block">
-                    <div id="out-general" class="hide">
-                        <input name="out-general" value="0" type="radio">Отсутствие сигнала (зуммера)<br>
-                        <input name="out-general" value="1" type="radio">Сигнал готовность станции (длинный гудок)<br>
-                        <input name="out-general" value="2" type="radio">Сигнал занято (короткие гудки)<br>
-                        <input name="out-general" value="3" type="radio">Голосовое сообщение<br>
-                        <input class="hide" id="out-general-text" name="out-general-text" placeholder="Впишите текст сообщения" type="text"><br>
-                        <button type="button" class="btn btn-success" id="out-general-ok-button">Связь работает</button>
-                    </div>
-                    <button type="button" class="btn btn-danger" id="out-general-button">Отсутствет</button>
-                </td>
-                <td id="out-quality-block">
-                    <div id="out-quality" class="hide">
-                        <input name="out-quality" value="0" type="radio">Шумы, помехи или эхо<br>
-                        <input name="out-quality" value="1" type="radio">Односторонняя слышимость<br>
-                        <input name="out-quality" value="2" type="radio">Обрывы разговоров<br>
-                        <input name="out-quality" value="3" type="radio">Ошибочные соединения<br>
-                        <button type="button" class="btn btn-success" id="out-quality-ok-button">Помех нет</button>
-                    </div>
-                    <button type="button" class="btn btn-warning" id="out-quality-button">Помехи</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Исходящая свять</td>
-                <td id="in-general-block">
-                    <div id="in-general" class="hide">
-                        <input name="in-general" value="0" type="radio">Отсутствие сигнала (зуммера)<br>
-                        <input name="in-general" value="1" type="radio">Сигнал готовность станции (длинный гудок)<br>
-                        <input name="in-general" value="2" type="radio">Сигнал занято (короткие гудки)<br>
-                        <input name="in-general" value="3" type="radio">Голосовое сообщение<br>
-                        <input class="hide" id="in-general-text" name="in-general-text" placeholder="Впишите текст сообщения" type="text"><br>
-                        <button type="button" class="btn btn-success" id="in-general-ok-button">Связь работает</button>
-                    </div>
-                    <button type="button" class="btn btn-danger" id="in-general-button">Отсутствет</button>
-                </td>
-                <td id="in-quality-block">
-                    <div id="in-quality" class="hide">
-                        <input name="in-quality" value="0" type="radio">Шумы, помехи или эхо<br>
-                        <input name="in-quality" value="1" type="radio">Односторонняя слышимость<br>
-                        <input name="in-quality" value="2" type="radio">Обрывы разговоров<br>
-                        <input name="in-quality" value="3" type="radio">Ошибочные соединения<br>
-                        <button type="button" class="btn btn-success" id="in-quality-ok-button">Помех нет</button>
-                    </div>
-                    <button type="button" class="btn btn-warning" id="in-quality-button">Помехи</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Тип аппарата</td>
-                <td>
-                    <input name="teltype" value="0" type="radio">Стационарный<br>
-                    <input name="teltype" value="1" type="radio">Радиотелефон<br>
-                    <input name="teltype" value="2" type="radio">Факс<br>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Параллельные телефоны на линии</td>
-                <td>
-                    <input name="paral" value="0" type="radio">На линии один телефонный аппарат<br>
-                    <input name="paral" value="1" type="radio">На линии есть параллельные аппараты<br>
-                    <input class="hide" name="paral-text" placeholder="Укажите количество" type="text">
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>ADSL на линии</td>
-                <td>
-                    <input name="dslonline" value="0" type="radio">На линии только телефония<br>
-                    <input name="dslonline" value="1" type="radio">На линии есть ADSL<br>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Наличие мини-АТС</td>
-                <td>
-                    <input name="pbx" value="0" type="radio">Есть<br>
-                    <input name="pbx" value="1" type="radio">Нет<br>
-                    <input name="pbx" value="2" type="radio">Неизвестно<br>
-                </td>
-                <td></td>
-            </tr>
-            <tr id="reload-pbx" class="hide">
-                <td>Перезагрузка Мини-АТС</td>
-                <td>
-                    <input name="pbxreload" value="0" type="radio">Да<br>
-                    <input name="pbxreload" value="1" type="radio">Нет<br>
-                    <input name="pbxreload" value="2" type="radio">Нет возможности<br>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Дополнительная информация</td>
-                <td>
-                    <input name="add" type="text">
-                </td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container" id="divwbut">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <button type="button" class="btn btn-primary btn-lg" onclick="getTelText();">Получить текст для проблемного листа
+                </button>
+            </div>
+        </div>
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Текст проблемного листа</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea id="text" style="width: 100%; height: 300px; box-sizing: border-box; resize:none;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<br>
+    <div class="push"></div><<!-- stick footer to the bottom -->
+</section>
 
-<div class="container" id="divwbut">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center">
-            <button type="button" class="btn btn-primary btn-lg" onclick="getTelText();">Получить текст для проблемного листа
-            </button>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Текст проблемного листа</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="text" style="width: 100%; height: 300px; box-sizing: border-box; resize:none;"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<footer>2016 &copy; Vega Support</footer> 
+
 <script src="js/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/createtables.js"></script>
-<script type="text/javascript" src="js/telephone.js"></script>
+<script src="js/telephone.js"></script>
 </body>
 </html>

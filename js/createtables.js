@@ -20,41 +20,11 @@ function takeParam() {
     var f = document.getElementById("trouble");
     var trb = f.options[f.selectedIndex].value;
 
-    return new Object({
+    return {
         zone: fil,
         data: valueD,
         trouble: trb
-    });
-}
-
-function getTelephone() {
-        var btn = $('#loadinggeneral');
-        btn.button('loading');
-        loadJSON('model_tel.json', function (response) {
-            var some = JSON.parse(response);
-            telForm(some);
-            btn.button('reset');
-        });
-}
-
-function getGeneral() {
-        var btn = $('#loadinggeneral');
-        btn.button('loading');
-        loadJSON('model_tel.json', function (response) {
-            var some = JSON.parse(response);
-            telForm('general', some);
-            btn.button('reset');
-        });
-}
-
-function getQuality() {
-        var btn = $('#loadingquality');
-        btn.button('loading');
-        loadJSON('model_tel.json', function (response) {
-            var some = JSON.parse(response);
-            telForm('quality', some);
-            btn.button('reset');
-        });
+    };
 }
 
 function init() {
@@ -83,8 +53,8 @@ function checkRadio(element) {
     for (var i = 0; i < rad.length; i++) {
         rad[i].onclick = function () {
             rad[rad.length - 1].checked
-                ? $('input[name="' + element + '"]').removeClass('hide')
-                : $('input[name="' + element + '"]').not('.hide').addClass('hide');
+                ? $('input[name="' + element + '"]').removeClass('hide').addClass('helper-input')
+                : $('input[name="' + element + '"]').not('.hide').addClass('hide').removeClass('helper-input');
         };
     }
 }
@@ -108,77 +78,134 @@ function getData() {
     return value;
 }
 
-function telForm(type, modelJson) {
-		var def = ['teltype', 'paral', 'dslonline', 'pbx', 'pbxreload'];
-		var general = ['typetel', 'troublegen'];
-		var quality = ['typetel', 'troublequality'];
-        var fromArr = type === 'general' ?  general.concat(def) : quality.concat(def);
-		alert(fromArr);
-        var result = '';
-        for (var i = 0; i < fromArr.length; i++) {
-            result += createElement(fromArr[i], modelJson);
-        }
-        result += createElement('add', modelJson);
-        document.getElementById('ol').innerHTML = result;
-        getHelpers();
-        $("#divwbut").removeClass('hide');
-}
-
 function olForm(param, modelJson) {
     loadJSON('tables.json', function (response) {
         var list = JSON.parse(response);
         var defVal = list[param.data][param.zone].def;
         var arr = (param.zone === 'c' || param.zone === 'n') ? list[param.data].s[param.trouble] : list[param.data][param.zone][param.trouble];
         var fromArr = defVal.concat(arr);
-        var result = '';
+        var result = document.getElementById('ol');
+        result.innerHTML = '';
         for (var i = 0; i < fromArr.length; i++) {
-            result += createElement(fromArr[i], modelJson);
+            result.appendChild(createElement(fromArr[i], modelJson));
         }
-        result += createElement('add', modelJson);
-        document.getElementById('ol').innerHTML = result;
+        result.appendChild(createElement('add', modelJson));
         getHelpers();
         $("#divwbut").removeClass('hide');
     });
 }
 
 function createElement(name, modelJson) {
-    var fPart = '<tr><td>' + modelJson[name].q + '</td><td>';
-    var input = '<input type="' + modelJson[name].t + '" name="' + name + '"/>';
-    var inputR = '<input type="' + modelJson[name].t + '" name="' + name + '"';
-    var inputL = '<input type="text" list="' + name + '" name="' + name + '" autocomplete="off"/>';
-    var end = '</td></tr>';
-    if (modelJson[name].t === 'text') {
-        return fPart + input + end;
-    }
-    if (modelJson[name].t === 'list') {
-        var list = '';
-        var startL = '<datalist id="' + name + '">';
-        var opt = '<option value="';
-        var endL = '">';
-        for (var i = 0; i < modelJson[name].a.length; i++) {
-            list += opt + modelJson[name].a[i] + endL;
-        }
-        return fPart + inputL + startL + list + end;
-    }
-    try {
-        var ph = modelJson[name].h.p;
-        return fPart + inputGen(inputR, modelJson[name].a) + elementWithHelper(name, ph) + end;
-    }
-    catch (e) {
-        return fPart + inputGen(inputR, modelJson[name].a) + end;
+    var wrapperRow = document.createElement('tr');    
+    wrapperRow.appendChild(createTD(modelJson[name].q));
+    switch (modelJson[name].t) {
+        case 'list':
+            wrapperRow.appendChild(createList(name, modelJson[name].a));
+            return wrapperRow;
+            break;
+        case 'text':
+            wrapperRow.appendChild(createText(name, modelJson[name].a));
+            return wrapperRow;
+            break;
+        case 'radio':
+            wrapperRow.appendChild(createRadio(name, modelJson[name].a));
+            if (modelJson[name].hasOwnProperty('h')) {
+                wrapperRow = createHelper(wrapperRow, modelJson, name);    
+            }
+            return wrapperRow;
+            break;
+        default:
+            wrapperRow.appendChild(errorBlock());
+            return wrapperRow;
+            break;
     }
 }
 
-function elementWithHelper(name, ph) {
-    return '<input class="hide" type="text" name="' + name + 'helper' + '" placeholder="' + ph + '"/>';
+function createTD(innerText) {
+    var tableCell = document.createElement('td');
+    tableCell.innerHTML = innerText;
+    return tableCell;
 }
 
-function inputGen(inputR, ansArray) {
-    var result = '';
-    for (i = 0; i < ansArray.length; i++) {
-        result += inputR + ' value="' + i + '"/>' + ansArray[i] + '<br />';
+function createHelper(wrapperRow, modelJson, name) {
+    var helperInput = document.createElement('input');
+    helperInput.type = 'text';
+
+    if ((modelJson[name].h).hasOwnProperty('n')) {
+        helperInput.name = modelJson[name].h.n;
     }
-    return result;
+    else {
+        helperInput.name = 'helper' + (~~(Math.random()*1000));        
+    }
+    helperInput.placeholder = modelJson[name].h.p;
+    helperInput.className += 'hide';
+
+    var tdChoices = wrapperRow.lastChild;
+
+    tdChoices.insertBefore(helperInput, tdChoices.lastChild);
+
+    return wrapperRow;
+}
+
+function createText(innerText) {
+    var tdChoices = createTD('');
+    var inputText = document.createElement('input');
+
+    inputText.type = text;
+    inputText.name = name;
+
+    tdChoices.appendChild(inputText);
+
+    return tdChoices;
+}
+
+function createList(name, listChoices) {
+    var tdChoices = createTD('');
+    var inputList = document.createElement('input');
+
+    inputList.autocomplete = 'off';
+    inputList.name = name;
+    inputList.setAttribute('list', name);
+
+    tdChoices.appendChild(inputList);
+
+    var datalist = document.createElement('datalist');
+    datalist.id = name;
+
+    for (var i = 0; i < listChoices.length; i++) {
+        var option = document.createElement('option');
+        option.value = listChoices[i];
+        datalist.appendChild(option);
+    }
+    tdChoices.appendChild(datalist);
+    return tdChoices;
+}
+
+function createRadio(name, radioChoices) {
+    var tdChoices = createTD('');
+    for (var i = 0; i < radioChoices.length; i++) {
+        var radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = name;
+        radio.value = i;
+        radio.id = name + '' + i;
+
+        var label = document.createElement('label');
+        label.setAttribute('for', radio.id);
+        label.innerHTML = radioChoices[i];        
+
+        var br = document.createElement('br');
+
+        tdChoices.appendChild(radio);
+        tdChoices.appendChild(label);
+        tdChoices.appendChild(br);        
+    } 
+
+    return tdChoices;
+}
+
+function errorBlock() {
+    return createTD('Creation of this block was stopped due to error. Reload page and try again.');
 }
 
 function getText() {
@@ -208,36 +235,6 @@ function getText() {
             }
             document.getElementById('text').innerHTML = text;
 			document.getElementById('myModalLabel').innerHTML = 'Проблема: ' + t.options[t.selectedIndex].innerHTML.toLowerCase();
-            $('#myModal').modal('toggle');
-        });
-    }
-}
-
-function getTelText() {
-	var inputs = $("#ol :input");
-    if (checkInput(inputs)) {
-        loadJSON('model_tel.json', function (response) {
-            var model = JSON.parse(response);
-            var text = '';
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].name.indexOf('helper') == -1) {
-                    var radioNode = model[inputs[i].name].f[inputs[i].value];
-                    var textNode = model[inputs[i].name].f;
-                    if (inputs[i].type === 'radio' && inputs[i].checked) {
-                        (inputs[i + 1].name.indexOf('helper') == -1)
-                            ? (text += radioNode + '\n')
-                            : (text += radioNode);
-                    }
-                    if (inputs[i].type === 'text' && inputs[i].value) { //check if 'add' filled
-                        text += textNode + inputs[i].value + '\n';
-                    }
-                }
-                else {
-                    if (inputs[i].value)
-                        text += inputs[i].value + '\n';
-                }
-            }
-            document.getElementById('text').innerHTML = text;
             $('#myModal').modal('toggle');
         });
     }

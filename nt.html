@@ -1,102 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Инструменты</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/background.css" rel="stylesheet" media="screen">
-    <link href="css/animation.load.css" rel="stylesheet" media="screen">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vega Support</title>
+    <link rel="shortcut icon" href="favicon.ico"></link>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/animation.load.css" rel="stylesheet">
 </head>
 <body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Опросные листы:</a>
+<header>    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Открыть меню</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#index.html">Vega Support</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Интернет</a></li>
+                    <li><a href="telephone.html">Телефония</a></li>
+                    <li class="active"><a href="nt.html">Инструменты</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/index.html">Интернет</a></li>
-                <li><a href="/telephone.html">Телефония</a></li>
-                <li class="divider-vertical"></li>
-                <li class="active"><a href="/nt.html">Инструменты</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="http://forum.alkar.org.ua/viewforum.php?f=3" target="_blank">Форум</a></li>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
     </div>
-</div>
+</header>
 
+<section>
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <input type="text" class="form-control" id="input-host" placeholder="Введи IP или домен" data-toggle="tooltip" data-placement="left" data-trigger="manual" data-original-title="Введи IP или домен">
+        <div class="col-md-5 col-xs-12">
+            <input type="text" class="form-control" id="input-host" placeholder="Введи IP или домен" data-toggle="tooltip" data-placement="top" data-trigger="manual" data-original-title="Введи IP или домен">
+            <div class="nettools-controls text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" id="ping">ping</button>
+                    <button type="button" class="btn btn-primary" id="traceroute">traceroute</button>
+                    <button type="button" class="btn btn-primary" id="nslookup">nslookup</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success" id="whois">whois</button>
+                    <button type="button" class="btn btn-success" id="dig">dig</button>
+                    <button type="button" class="btn btn-success" id="host">host</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info" id="nmap">nmap</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<br>
-
-<div class="container">
-    <div class="btn-group-wrap">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" id="ping">ping</button>
-            <button type="button" class="btn btn-primary" id="traceroute">traceroute</button>
-            <button type="button" class="btn btn-primary" id="nslookup">nslookup</button>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-success" id="whois">whois</button>
-            <button type="button" class="btn btn-success" id="dig">dig</button>
-            <button type="button" class="btn btn-success" id="host">host</button>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-danger" id="nmap">nmap</button>
-        </div>
-    </div>
-</div>
-<br><br><br>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-    		<div class="hide windows8" id="loading-animation" style="margin-left: auto; margin-right: auto;">
-    				<div class="wBall" id="wBall_1">
-    				<div class="wInnerBall">
-    				</div>
-    				</div>
-    				<div class="wBall" id="wBall_2">
-    				<div class="wInnerBall">
-    				</div>
-    				</div>
-    				<div class="wBall" id="wBall_3">
-    				<div class="wInnerBall">
-    				</div>
-    				</div>
-    				<div class="wBall" id="wBall_4">
-    				<div class="wInnerBall">
-    				</div>
-    				</div>
-    				<div class="wBall" id="wBall_5">
-    				<div class="wInnerBall">
-    				</div>
-    				</div>
-    		</div>
+        <div class="col-md-7 col-xs-12">
+            <div class="hide windows8" id="loading-animation">
+                    <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+            </div>
             <div class="hide console" id="console">
 
             </div>
         </div>
     </div>
 </div>
+    <div class="push"></div><<!-- stick footer to the bottom -->
+</section>
 
-<script src="http://code.jquery.com/jquery.js"></script>
+<footer>2016 &copy; Vega Support</footer> 
+<script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/nettools.js"></script>
 </body>
