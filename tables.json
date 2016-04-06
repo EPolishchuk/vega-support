@@ -1,0 +1,621 @@
+{
+    "fiber": {
+        "w": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ],
+            "link": [
+                "lanstate",
+                "duplexset"
+            ],
+            "soft": [
+                "changepc",
+                "protectstate"
+            ],
+            "auth": [
+                "authtype",
+                "macport",
+                "protectstate",
+                "duplexset"
+            ],
+            "close": [
+                "lanclosecon",
+                "closecause",
+                "pingatclose",
+                "protectstate",
+                "duplexset"
+            ],
+            "loswspeed": [
+                "protectstate",
+                "rddcheck",
+                "rddspeed",
+                "duplexset"
+            ],
+            "paklost": [
+                "protectstate",
+                "errorsport",
+                "rddcheck",
+                "pingcheckwe"
+            ]
+        },
+        "n": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ]
+        },
+        "ne": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ],
+            "link": [
+                "lanstate",
+                "duplexset"
+            ],
+            "soft": [
+                "changepc",
+                "protectstate"
+            ],
+            "auth": [
+                "pppcheck",
+                "protectstate",
+                "duplexset"
+            ],
+            "close": [
+                "lanclosecon",
+                "closecause",
+                "pingatclose",
+                "protectstate",
+                "duplexset"
+            ],
+            "loswspeed": [
+                "protectstate",
+                "rddcheck",
+                "rddspeed",
+                "duplexset"
+            ],
+            "paklost": [
+                "protectstate",
+                "errorsport",
+                "rddcheck",
+                "duplexset",
+                "pingcheckwe"
+            ]
+        },
+        "c": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ]
+        },
+        "s": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ],
+            "link": [
+                "dhcp",
+                "lanstate",
+                "changepc",
+                "fttcheck",
+                "duplexset"
+            ],
+            "soft": [
+                "changepc",
+                "protectstate",
+                "pingfromus"
+            ],
+            "auth": [
+                "authtype",
+                "lanstate",
+                "changepc",
+                "macport",
+                "protectstate",
+                "duplexset"
+            ],
+            "close": [
+                "changepc",
+                "lanclosecon",
+                "closecause",
+                "errorsport",
+                "rentip",
+                "protectstate",
+                "pingatclose",
+                "duplexset"
+            ],
+            "loswspeed": [
+                "protectstate",
+                "pingcheckwe",
+                "rddspeed",
+                "duplexset"
+            ],
+            "paklost": [
+                "protectstate",
+                "changepc",
+                "errorsport",
+                "pingcheckwe",
+                "duplexset"
+            ]
+        },
+        "k": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ],
+            "link": [
+                "fttcheck",
+                "lanstate",
+                "duplexset",
+                "changepc"
+            ],
+            "soft": [
+                "pingfromus",
+                "pingfromthem",
+                "protectstate",
+                "changepc"
+            ],
+            "auth": [
+                "authtype",
+                "lanstate",
+                "protectstate",
+                "duplexset",
+                "changepc"
+            ],
+            "close": [
+                "lanclosecon",
+                "closecause",
+                "pingatclose",
+                "protectstate",
+                "duplexset"
+            ],
+            "loswspeed": [
+                "protectstate",
+                "rddcheck",
+                "rddspeed",
+                "pingcheckwe",
+                "duplexset"
+            ],
+            "paklost": [
+                "protectstate",
+                "rddcheck",
+                "pingcheckwe",
+                "changepc"
+            ]
+        },
+        "e": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "type",
+                "turnon"
+            ],
+            "link": [
+                "lanstate",
+                "changepc",
+                "fttcheck",
+                "duplexset"
+            ],
+            "soft": [
+                "changepc",
+                "protectstate",
+                "pingfromus"
+            ],
+            "auth": [
+                "authtype",
+                "lanstate",
+                "changepc",
+                "macport",
+                "protectstate",
+                "duplexset"
+            ],
+            "close": [
+                "changepc",
+                "lanclosecon",
+                "closecause",
+                "errorsport",
+                "rentip",
+                "protectstate",
+                "pingatclose",
+                "duplexset"
+            ],
+            "loswspeed": [
+                "protectstate",
+                "pingcheckwe",
+                "rddspeed",
+                "duplexset",
+                "plan"
+            ],
+            "paklost": [
+                "protectstate",
+                "changepc",
+                "errorsport",
+                "pingcheckwe",
+                "duplexset"
+            ]
+        }
+    },
+    "adsl": {
+        "w": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "dsllamp",
+                "telcheck",
+                "plan",
+                "changemod"
+            ],
+            "soft": [
+                "dsllamp",
+                "modemname",
+                "changemod",
+                "protectstate"
+            ],
+            "auth": [
+                "dsllamp",
+                "modemname",
+                "macport",
+                "modemcheck",
+                "plan"
+            ],
+            "close": [
+                "dsllampclose",
+                "secondary",
+                "modemname",
+                "bridgerout",
+                "closecause",
+                "errorsport",
+                "modemcheck",
+                "plan"
+            ],
+            "loswspeed": [
+                "dsllamp",
+                "modemname",
+                "rddcheck",
+                "rddspeed",
+                "protectstate",
+                "errorsport",
+                "plan"
+            ],
+            "paklost": [
+                "dsllamp",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "protectstate",
+                "plan"
+            ]
+        },
+        "n": {
+                "def": [
+                    "alarm",
+                    "port",
+                    "relclient",
+                    "clientcable",
+                    "turnon"
+                ]
+        },
+        "ne": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "dsllamp",
+                "modemname",
+                "telcheck",
+                "plan",
+                "changemod"
+            ],
+            "soft": [
+                "dsllamp",
+                "modemname",
+                "changemod",
+                "protectstate"
+            ],
+            "auth": [
+                "dsllamp",
+                "modemname",
+                "modemcheck",
+                "plan"
+            ],
+            "close": [
+                "dsllampclose",
+                "modemname",
+                "bridgerout",
+                "closecause",
+                "modemcheck",
+                "plan"
+            ],
+            "loswspeed": [
+                "dsllamp",
+                "modemname",
+                "rddcheck",
+                "rddspeed",
+                "protectstate",
+                "plan"
+            ],
+            "paklost": [
+                "dsllamp",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "protectstate",
+                "plan"
+            ]
+        },
+        "c": {
+                "def": [
+                    "alarm",
+                    "port",
+                    "relport",
+                    "relclient",
+                    "clientcable",
+                    "turnon"
+                ]
+        },
+        "s": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "dsllamp",
+                "modemname",
+                "changeprofile",
+                "telcheck"
+            ],
+            "soft": [
+                "dsllamp",
+                "modemname",
+                "protectstate"
+            ],
+            "auth": [
+                "modemname",
+                "macport",
+                "modemcheck"
+            ],
+            "close": [
+                "dsllampclose",
+                "secondary",
+                "modemname",
+                "bridgerout",
+                "closecause",
+                "changeprofile",
+                "wosplit",
+                "changemod"
+            ],
+            "loswspeed": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "rddspeed",
+                "protectstate",
+                "wosplit"
+            ],
+            "lowlink": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "modemodulation"
+            ],
+            "paklost": [
+                "dsllamp",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "protectstate"
+            ]
+        },
+        "k": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "dsllamp",
+                "modemname",
+                "changeprofile",
+                "telcheck",
+                "plan"
+            ],
+            "soft": [
+                "dsllamp",
+                "modemname",
+                "protectstate"
+            ],
+            "auth": [
+                "modemname",
+                "bridgerout",
+                "modemcheck",
+                "plan"
+            ],
+            "close": [
+                "dsllampclose",
+                "secondary",
+                "modemname",
+                "bridgerout",
+                "closecause",
+                "changeprofile",
+                "wosplit",
+                "changemod"
+            ],
+            "loswspeed": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "rddspeed",
+                "protectstate",
+                "wosplit"
+            ],
+            "lowlink": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "modemodulation"
+            ],
+            "paklost": [
+                "dsllamp",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "protectstate"
+            ]
+        },
+        "e": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "dsllamp",
+                "modemname",
+                "changeprofile",
+                "telcheck"
+            ],
+            "soft": [
+                "dsllamp",
+                "modemname",
+                "protectstate"
+            ],
+            "auth": [
+                "modemname",
+                "macport",
+                "modemcheck"
+            ],
+            "close": [
+                "dsllampclose",
+                "secondary",
+                "modemname",
+                "bridgerout",
+                "closecause",
+                "changeprofile",
+                "wosplit",
+                "changemod"
+            ],
+            "loswspeed": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "rddspeed",
+                "protectstate",
+                "wosplit",
+                "plan"
+            ],
+            "lowlink": [
+                "secondary",
+                "changeprofile",
+                "modemname",
+                "bridgerout",
+                "modemodulation",
+                "plan"
+            ],
+            "paklost": [
+                "dsllamp",
+                "modemname",
+                "bridgerout",
+                "rddcheck",
+                "protectstate"
+            ]
+        }
+    },
+    "vpnfiber": {
+        "ne": {
+            "def": [
+                "alarm",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "link": [
+                "lanstate",
+                "lansetevpn",
+                "duplexset"
+            ],
+            "soft": [
+                "changepc",
+                "protectstate"
+            ],
+            "auth": [
+                "pppcheck",
+                "protectstate",
+                "duplexset"
+            ]
+        }
+    },
+    "vpnadsl": {
+        "s": {
+            "def": [
+                "alarm",
+                "port",
+                "relport",
+                "relclient",
+                "clientcable",
+                "turnon"
+            ],
+            "auth": [
+                "modemname",
+                "modemcheck",
+                "macport",
+                "macvpn",
+                "lanstate",
+                "getvpnip",
+                "tracevpn",
+                "duplexset",
+                "protectstate"
+            ]
+        }
+    }
+}
